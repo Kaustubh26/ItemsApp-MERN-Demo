@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb://localhost/itemapp",
+  "port": 5000
+}
