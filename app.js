@@ -3,8 +3,9 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const config = require("./config");
 const mongoose = require("mongoose");
+const config = require("./config");
+const cors = require('cors')
 
 //Load Routers
 const indexRouter = require('./routes/index');
@@ -32,6 +33,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Enable CORS
+app.use(cors());
+
 //Assign Routers
 app.use('/', indexRouter);
 app.use('/item', itemRouter);
@@ -51,8 +55,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-const port = config.port;
-app.listen(port, () => console.log(`Server up and running on port ${port} !`));
 
 module.exports = app;
